@@ -1,6 +1,20 @@
 const router = require('express').Router();
 const { post } = require('../../models');
 
+router.get('/', function (req, res) {
+  sql.connect(sqlConfig, function() {
+    const request = new sql.Request();
+    request.query('select * from techblog_db', function(err, recordset) {
+       if(err) console.log(err);
+        res.end(JSON.stringify(recordset));
+      });
+    });
+});
+
+
+
+
+
 router.post('/', async (req, res) => {
   try {
     const newpost = await post.create({
